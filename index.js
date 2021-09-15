@@ -15,12 +15,16 @@ app.get("/hui", (req, res) => {
     return;
   }
 
-  cp.execSync(`ssh -p ${SSH_PORT} ${SSH_HOST} '
-  cd tochka_deployer;
-  docker-compose -f ./target.yml down;
-  docker-compose -f ./target.yml build;
-  docker-compose -f ./target.yml up -d;
-'`);
+  try {
+    cp.execSync(`ssh -p ${SSH_PORT} ${SSH_HOST} '
+      cd tochka_deployer;
+      docker-compose -f ./target.yml down;
+      docker-compose -f ./target.yml build;
+      docker-compose -f ./target.yml up -d;
+    '`);
+  } catch (error) {
+    res.send("lol");
+  }
 });
 
 app.listen(5469, "0.0.0.0");
