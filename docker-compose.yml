@@ -7,3 +7,5 @@ services:
     env_file: ./.env
     ports:
       - "5469:5469"
+    volumes:
+      - ~/.ssh:~/.ssh
