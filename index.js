@@ -30,8 +30,8 @@ app.post("/hui", (req, res) => {
       cd tochka_bot;
       docker-compose down;
       git pull;
-      rm .env
-      echo '${envString}' > .env
+      rm .env;
+      echo '${envString}' > .env;
       docker-compose build;
       docker-compose up -d;
     '`);
@@ -39,7 +39,7 @@ app.post("/hui", (req, res) => {
       response: "Готово",
     });
   } catch (error) {
-    return res.status(500).json({
+    return res.status(400).json({
       response: "Ошибка",
     });
   }
