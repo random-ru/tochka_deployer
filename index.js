@@ -33,7 +33,7 @@ app.post("/hui", (req, res) => {
     cp.execSync(`ssh -p ${SSH_PORT} ${SSH_HOST} '
       cd tochka_bot;
       rm -f ./.env;
-      touch .env;
+      echo '${envString}';
       echo '${envString}' > .env;
       git pull;
       docker-compose down;
