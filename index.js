@@ -17,11 +17,12 @@ app.get("/hui", (req, res) => {
 
   try {
     cp.execSync(`ssh -p ${SSH_PORT} ${SSH_HOST} '
-      cd tochka_deployer;
-      docker-compose -f target.yml down;
-      docker-compose -f target.yml build;
-      docker-compose -f target.yml up -d;
+      cd tochka_bot;
+      docker-compose down;
+      docker-compose build;
+      docker-compose up -d;
     '`);
+    res.send("123");
   } catch (error) {
     res.send("lol");
   }
