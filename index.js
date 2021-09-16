@@ -28,11 +28,10 @@ app.post("/hui", (req, res) => {
       .map((entry) => entry.join("="))
       .join("\n");
 
-    console.log(envString);
-
     cp.execSync(`ssh -p ${SSH_PORT} ${SSH_HOST} '
       cd tochka_bot;
       rm -f ./.env;
+      echo ${envString};
       echo ${envString} > .env;
       git pull;
       docker-compose down;
