@@ -12,7 +12,7 @@ app.get("/hui", (req, res) => {
   const requestSecret = req.headers["secret"];
 
   if (requestSecret !== secret) {
-    return;
+    res.send("Нихуя");
   }
 
   try {
