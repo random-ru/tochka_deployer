@@ -8,20 +8,30 @@ const SSH_PORT = process.env.SSH_PORT;
 
 const app = express();
 
-app.get("/hui", (req, res) => {
+app.use(express.json());
+
+app.post("/hui", (req, res) => {
   const requestSecret = req.headers["secret"];
 
   if (requestSecret !== secret) {
-    return res.json({
+    return res.status(400).json({
       response: "Нихуя",
     });
   }
 
   try {
+    const env = req.body.env;
+
+    const envString = Object.values(env)
+      .map((entry) => entry.join("="))
+      .join("\n");
+
     cp.execSync(`ssh -p ${SSH_PORT} ${SSH_HOST} '
       cd tochka_bot;
-      git pull;
       docker-compose down;
+      git pull;
+      rm .env
+      echo '${envString}' > .env
       docker-compose build;
       docker-compose up -d;
     '`);
@@ -29,7 +39,7 @@ app.get("/hui", (req, res) => {
       response: "Готово",
     });
   } catch (error) {
-    return res.json({
+    return res.status(500).json({
       response: "Ошибка",
     });
   }
