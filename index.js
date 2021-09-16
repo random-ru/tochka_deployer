@@ -18,6 +18,7 @@ app.get("/hui", (req, res) => {
   try {
     cp.execSync(`ssh -p ${SSH_PORT} ${SSH_HOST} '
       cd tochka_bot;
+      git pull;
       docker-compose down;
       docker-compose build;
       docker-compose up -d;
