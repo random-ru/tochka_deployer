@@ -30,19 +30,13 @@ app.post("/hui", (req, res) => {
 
     cp.execSync(`ssh -p ${SSH_PORT} ${SSH_HOST} '
       cd tochka_bot;
-      echo "cd done"
-      rm -f .env;
+      rm -f ./.env;
+      touch .env;
       echo '${envString}' > .env;
       git pull;
       docker-compose down;
-      echo "down done"
-      echo "pull done"
-      ls -la;
-      ls -la;
-      cat .env;
       docker-compose build;
       docker-compose up -d;
-      docker ps;
     '`);
     return res.json({
       response: "Готово",
