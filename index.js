@@ -12,7 +12,9 @@ app.get("/hui", (req, res) => {
   const requestSecret = req.headers["secret"];
 
   if (requestSecret !== secret) {
-    res.send("Нихуя");
+    return res.json({
+      response: "Нихуя",
+    });
   }
 
   try {
@@ -23,9 +25,13 @@ app.get("/hui", (req, res) => {
       docker-compose build;
       docker-compose up -d;
     '`);
-    res.send("123");
+    return res.json({
+      response: "Готово",
+    });
   } catch (error) {
-    res.send("lol");
+    return res.json({
+      response: "Ошибка",
+    });
   }
 });
 
