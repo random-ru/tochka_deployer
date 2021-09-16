@@ -24,7 +24,7 @@ app.post("/hui", (req, res) => {
   try {
     const env = req.body.env;
 
-    const envString = Object.values(env)
+    const envString = Object.entries(env)
       .map((entry) => entry.join("="))
       .join("\n");
 
