@@ -18,9 +18,9 @@ app.get("/hui", (req, res) => {
   try {
     cp.execSync(`ssh -p ${SSH_PORT} ${SSH_HOST} '
       cd tochka_deployer;
-      docker-compose -f ./target.yml down;
-      docker-compose -f ./target.yml build;
-      docker-compose -f ./target.yml up -d;
+      docker-compose -f target.yml down;
+      docker-compose -f target.yml build;
+      docker-compose -f target.yml up -d;
     '`);
   } catch (error) {
     res.send("lol");
