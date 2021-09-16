@@ -14,7 +14,9 @@ app.post("/hui", (req, res) => {
   const requestSecret = req.headers["secret"];
 
   if (requestSecret !== secret) {
-    return res.status(400).json({
+    console.log("🤡🤡🤡 Атака 🤡🤡🤡");
+    res.status(400);
+    return res.json({
       response: "Нихуя",
     });
   }
@@ -39,7 +41,10 @@ app.post("/hui", (req, res) => {
       response: "Готово",
     });
   } catch (error) {
-    return res.status(400).json({
+    console.log(error);
+
+    res.status(400);
+    return res.json({
       response: "Ошибка",
     });
   }
