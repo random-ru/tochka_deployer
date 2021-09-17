@@ -24,10 +24,11 @@ app.post("/hui", (req, res) => {
 
   try {
     const env = req.body.env;
+    const separator = "228randomru228";
 
     const envString = Object.entries(env)
       .map((entry) => entry.join("="))
-      .join("228huipizda228");
+      .join(separator);
 
     const chunks = lodash.chunk(envString, 500).map((ch) => ch.join(""));
 
@@ -35,8 +36,8 @@ app.post("/hui", (req, res) => {
       source .zshrc;
       cd tochka_bot;
       rm -f ./.env;
-      ${chunks.map((ch) => `echo ${ch} >> .env;`).join("\n")}
-      npx -y env-enjoyer;
+      ${chunks.map((ch) => `printf ${ch} >> .env;`).join("\n")}
+      SEPARATOR=${separator} npx -y env-enjoyer;
       echo "\n" >> .env;
       git pull;
       docker-compose down;
