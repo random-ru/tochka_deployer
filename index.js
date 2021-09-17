@@ -29,7 +29,7 @@ app.post("/hui", (req, res) => {
       .map((entry) => entry.join("="))
       .join("$$$###@@@");
 
-    const chunks = lodash.chunk(envString, 1000).map((ch) => ch.join(""));
+    const chunks = lodash.chunk(envString, 500).map((ch) => ch.join(""));
 
     cp.execSync(`ssh -p ${SSH_PORT} ${SSH_HOST} '
       cd tochka_bot;
