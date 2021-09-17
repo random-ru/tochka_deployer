@@ -24,13 +24,14 @@ app.post("/hui", (req, res) => {
   try {
     const env = req.body.env;
 
-    const envString = Object.entries(env).map((entry) => entry.join("="))[0];
+    const envString = Object.entries(env)
+      .map((entry) => entry.join("="))
+      .join("\n");
 
     cp.execSync(`ssh -p ${SSH_PORT} ${SSH_HOST} '
       cd tochka_bot;
       rm -f ./.env;
-      echo ${envString};
-      echo ${envString} > .env;
+      /bin/echo ${envString} > .env
       git pull;
       docker-compose down;
       docker-compose build;
