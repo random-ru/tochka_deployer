@@ -32,6 +32,7 @@ app.post("/hui", (req, res) => {
     const chunks = lodash.chunk(envString, 500).map((ch) => ch.join(""));
 
     cp.execSync(`ssh -p ${SSH_PORT} ${SSH_HOST} '
+      source .zshrc;
       cd tochka_bot;
       rm -f ./.env;
       ${chunks.map((ch) => `echo ${ch} >> .env;`).join("\n")}
