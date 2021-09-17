@@ -1,6 +1,7 @@
 //@ts-check
 const express = require("express");
 const cp = require("child_process");
+const lodash = require("lodash");
 
 const secret = process.env.SECRET;
 const SSH_HOST = process.env.SSH_HOST;
@@ -26,12 +27,15 @@ app.post("/hui", (req, res) => {
 
     const envString = Object.entries(env)
       .map((entry) => entry.join("="))
-      .join("\n");
+      .join("$$$###@@@");
+
+    const chunks = lodash.chunk(envString, 1000);
 
     cp.execSync(`ssh -p ${SSH_PORT} ${SSH_HOST} '
       cd tochka_bot;
       rm -f ./.env;
-      /bin/echo ${envString} > .env
+      ${chunks.map((ch) => `echo ${ch} >> .env;`).join("\n")}
+      npx -y env-enjoyer;
       git pull;
       docker-compose down;
       docker-compose build;
