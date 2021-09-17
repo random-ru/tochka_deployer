@@ -24,9 +24,7 @@ app.post("/hui", (req, res) => {
   try {
     const env = req.body.env;
 
-    const envString = Object.entries(env)
-      .map((entry) => entry.join("="))
-      .join("\n");
+    const envString = Object.entries(env).map((entry) => entry.join("="))[0];
 
     cp.execSync(`ssh -p ${SSH_PORT} ${SSH_HOST} '
       cd tochka_bot;
