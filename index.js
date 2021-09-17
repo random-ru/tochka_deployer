@@ -37,6 +37,7 @@ app.post("/hui", (req, res) => {
       rm -f ./.env;
       ${chunks.map((ch) => `echo ${ch} >> .env;`).join("\n")}
       npx -y env-enjoyer;
+      echo "\n" >> .env;
       git pull;
       docker-compose down;
       docker-compose build;
