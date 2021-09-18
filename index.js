@@ -37,7 +37,7 @@ app.post("/hui", (req, res) => {
       cd tochka_bot;
       rm -f ./.env;
       ${chunks.map((ch) => `printf ${ch} >> .env;`).join("\n")}
-      SEPARATOR=${separator} npx -y env-enjoyer;
+      FILENAME=.env SEPARATOR=${separator} npx -y env-enjoyer;
       echo "\n" >> .env;
       git pull;
       docker-compose down;
